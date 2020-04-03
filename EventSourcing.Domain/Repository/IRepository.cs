@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace EventSourcing.Infrastructure.Repository
+namespace EventSourcing.Domain.Repository
 {
     public interface IRepository<T> where T : class
     {

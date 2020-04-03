@@ -4,7 +4,7 @@ namespace EventSourcing.Shared
 {
     public class DomainEvent
     {
-        public int AggregateRootId { get; set; }
+        public Guid AggregateRootId { get; set; }
 
         public DateTime OccuredOn { get; protected set; }
 
@@ -13,7 +13,7 @@ namespace EventSourcing.Shared
 
         }
 
-        public DomainEvent(int aggregateRootId, DateTime occuredOn)
+        public DomainEvent(Guid aggregateRootId, DateTime occuredOn)
         {
             AggregateRootId = aggregateRootId;
             OccuredOn = occuredOn;

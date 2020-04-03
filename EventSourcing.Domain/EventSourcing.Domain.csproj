@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EventSourcing.Infrastructure\EventSourcing.Infrastructure.csproj" />
     <ProjectReference Include="..\EventSourcing.Shared\EventSourcing.Shared.csproj" />
   </ItemGroup>
 

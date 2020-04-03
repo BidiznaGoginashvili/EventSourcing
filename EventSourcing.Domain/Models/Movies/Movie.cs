@@ -28,11 +28,8 @@ namespace EventSourcing.Domain.Models.Movies
             Budget = budget;
             Salary = salary;
             Description = description;
-        }
 
-        public void ApplyEvent(MovieCreated @event)
-        {
-
+            HandleEvent(new MovieCreated(Id, Title));
         }
     }
 }

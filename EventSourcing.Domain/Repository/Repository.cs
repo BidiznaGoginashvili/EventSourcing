@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using EventSourcing.Infrastructure.DataBase;
 
-namespace EventSourcing.Infrastructure.Repository
+namespace EventSourcing.Domain.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
