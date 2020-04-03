@@ -1,12 +1,13 @@
 ﻿using System;
 using EventSourcing.Shared;
 using System.Collections.Generic;
+using EventSourcing.Domain.Core;
+using EventSourcing.Domain.Events.Movies;
 
 namespace EventSourcing.Domain.Models.Movies.ReadModel
 {
-    public class MovieDetailsDto : BoundedContext
+    public class MovieDetailsDto : AggregateRoot
     {
-        public Guid Id { get; set; }
         public string Title { get; set; }
         public decimal Budget { get; set; }
         public decimal Salary { get; set; }
@@ -29,6 +30,14 @@ namespace EventSourcing.Domain.Models.Movies.ReadModel
             Salary = salary;
             ImagePath = imagePath;
             Genres = genres;
+
+            HandleEvent(new MovieDetailsCreated(Id, Title));
+        }
+
+        public void AppplyEvent(MovieDetailsCreated @event) 
+        {
+            Id = @event.AggregateRootId;
+            Title = @event.Title;
         }
     }
 

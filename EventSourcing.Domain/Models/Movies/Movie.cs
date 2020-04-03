@@ -31,5 +31,11 @@ namespace EventSourcing.Domain.Models.Movies
 
             HandleEvent(new MovieCreated(Id, Title));
         }
+
+        public void ApplyEvent(MovieCreated @event) 
+        {
+            Id = @event.AggregateRootId;
+            Title = @event.Title;
+        }
     }
 }

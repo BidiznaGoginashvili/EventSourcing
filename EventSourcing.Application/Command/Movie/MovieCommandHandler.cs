@@ -36,6 +36,8 @@ namespace EventSourcing.Application.Command.Movie
                 });
 
                 _eventStoreRepository.Save(movie);
+                _eventStoreRepository.Save(movieDetails);
+                //_eventStoreRepository.Save(movieList);
 
                 return Task.FromResult(false);
             }

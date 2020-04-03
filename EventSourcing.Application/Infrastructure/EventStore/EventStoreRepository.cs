@@ -39,7 +39,29 @@ namespace EventSourcing.Application.Infrastructure.EventStore
 
         public T GetById<T>(Guid id, long startPosition = 0) where T : AggregateRoot
         {
-            throw new NotImplementedException();
+            var connection = CreateConnection();
+
+            var streamName = $"{_streamPrefix}{id}";
+            var streamEvents = new List<ResolvedEvent>();
+
+            StreamEventsSlice currentSlice;
+            do
+            {
+                currentSlice = connection.ReadStreamEventsForwardAsync(streamName, startPosition, 100, false).Result;
+                startPosition = currentSlice.NextEventNumber;
+
+                streamEvents.AddRange(currentSlice.Events);
+            } while (!currentSlice.IsEndOfStream);
+
+            dynamic aggregate = Activator.CreateInstance<T>();
+
+            foreach (var evt in streamEvents)
+            {
+                dynamic domainEvent = JsonConvert.DeserializeObject(Encoding.UTF8.GetString(evt.Event.Data), _jsonSettings);
+                aggregate.ApplyEvent(domainEvent);
+            }
+
+            return aggregate;
         }
 
         public void Save(AggregateRoot aggregateRoot)
